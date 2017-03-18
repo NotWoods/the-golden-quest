@@ -1,8 +1,6 @@
 import * as Alexa from 'alexa-sdk';
 import { readSampleUtterances } from './fs';
 
-
-
 const APP_ID = ''; //TODO
 
 export function handler(
