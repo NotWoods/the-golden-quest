@@ -5,6 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "tsc",
+    "prestart": "npm run prepare --silent || exit 0",
     "start": "node out/index.js"
   },
   "keywords": [
