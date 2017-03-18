@@ -1,4 +1,6 @@
 import * as Alexa from 'alexa-sdk';
+import { readSampleUtterances } from './fs';
+
 
 
 const APP_ID = ''; //TODO
@@ -66,7 +68,8 @@ var helpStateHandlers = Alexa.CreateStateHandler(GAME_STATES.HELP, {
             this.emitWithState("StartGame", false);
         }
     },
-    "AMAZON.NoIntent": function() {
+    async "AMAZON.NoIntent"() {
+		var text = await readSampleUtterances();
         var speechOutput = this.t("NO_MESSAGE");
         this.emit(":tell", speechOutput);
     },
@@ -85,3 +88,7 @@ var helpStateHandlers = Alexa.CreateStateHandler(GAME_STATES.HELP, {
         console.log("Session ended in help state: " + this.event.request.reason);
     }
 });
+
+function hi() {
+	console.log("Hello");
+}
