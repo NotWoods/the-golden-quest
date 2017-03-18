@@ -1,12 +1,10 @@
-export enum Direction {
-	NORTH, EAST, SOUTH, WEST
-}
+import StoryNode from './StoryNode';
 
 export default class Player {
-	facing: Direction;
+	state: StoryNode;
 
 	constructor(id: string) {
-		this.facing = Direction.NORTH;
+
 	}
 
 	static async getPlayer(id: string): Promise<Player> {
