@@ -29,10 +29,10 @@ var languageString = {
             "HELP_MESSAGE": "I will ask you %s multiple choice questions. Respond with the number of the answer. " + //Needed
             "For example, say one, two, three, or four. To start a new game at any time, say, start game. ",
             "REPEAT_QUESTION_MESSAGE": "To repeat the last question, say, repeat. ", //Needed
-            "ASK_MESSAGE_START": "Would you like to start playing?", //Needed 
+            "ASK_MESSAGE_START": "Do you need to go to the bathroom?", //Needed 
             "HELP_REPROMPT": "To give an answer to a question, respond with the number of the answer. ", //Needed 
-            "STOP_MESSAGE": "Would you like to keep playing?", //Needed 
-            "CANCEL_MESSAGE": "Ok, let\'s play again soon.", //Needed
+            "STOP_MESSAGE": "Do you want to give up and pee your pants?", //Needed 
+            "CANCEL_MESSAGE": "You\'ve failed to find a bathroom and have peed your pants. Play again?.", //Needed
             "NO_MESSAGE": "Ok, we\'ll play another time. Goodbye!", //Needed 
             "HELP_UNHANDLED": "Say yes to continue, or no to end the game.", //Needed
             "START_UNHANDLED": "Say start to start a new game.", //Needed
