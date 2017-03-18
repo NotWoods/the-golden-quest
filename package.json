@@ -14,10 +14,13 @@
     "game"
   ],
   "dependencies": {
-    "alexa-sdk": "^1.0.6"
+    "alexa-sdk": "^1.0.6",
+    "denodeify": "^1.2.1"
   },
   "devDependencies": {
-    "typescript": "^2.2.1",
-    "@types/alexa-sdk": "^1.0.4"
+    "@types/alexa-sdk": "^1.0.4",
+    "@types/denodeify": "^1.2.30",
+    "@types/node": "^7.0.8",
+    "typescript": "^2.2.1"
   }
 }

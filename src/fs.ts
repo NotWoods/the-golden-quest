@@ -4,7 +4,7 @@ import denodeify from 'denodeify';
 
 export const readFile = denodeify(fs.readFile);
 
-export async function readSampleUtterances(language = 'en_US') {
+export async function readSampleUtterances(language = 'en_US'): Promise<string> {
 	return readFile(
 		resolve(__dirname, `../SampleUtterances_${language}`),
 		'utf8'
