@@ -1,0 +1,21 @@
+{
+  "name": "alexa-dungeon-crawler",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "tsc"
+  },
+  "keywords": [
+    "alexa",
+    "skill",
+    "game"
+  ],
+  "dependencies": {
+    "alexa-sdk": "^1.0.6"
+  },
+  "devDependencies": {
+    "typescript": "^2.2.1",
+    "@types/alexa-sdk": "^1.0.4"
+  }
+}
