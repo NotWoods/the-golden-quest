@@ -2,38 +2,38 @@
 start: You are at a hackathon and have been coding for 7 hours straight. Taking advantage of all of the free soda and red bull supplied at the event, you realize that your bladder is quite full.
 >> aa: lost_in_school
 
-lost_in_school : However, you realize you don’t know where the bathroom is in this building.
-> ba: run home | friend
-> bb: go out to pee in a bush | people_walking_by
+lost_in_school : However, you don’t know where the bathroom is. 
+> ba: wander around | friend
+> bb: go pee in a bush | people_walking_by
 > bc: look at the building directory | janitor_closet
 
-friend: You bump into your friend from your computer science class. She tries to get a conversation going. You try to be polite.
-> ca: Agree to chat | drones_on
-> cb: Avoid conversation | need_to_go
+friend: You bump into your friend from your computer science class. She needs to tell you something. 
+> ca: Agree to stay | drones_on
+> cb: Avoid conversation | kicks_bladder
 
 drones_on: You friend begins to ramble on about algorithms and quantum mechanics. You can't hold on for much longer.
-> da: run away | need_to_go
+> da: say you need to go | need_to_go
 > db: cut her off | kicks_bladder
 
 kicks_bladder: Your friend throws a fit and kicks you in the bladder.
 >> ea: peed_pants
 
-need_to_go: You really need to go.
+need_to_go: You really need to go. You begin to hallucinate about waterfalls. You run home. 
 >> fa: forgot_key
 
-forgot_key: You reach in your back pocket and realize that you forgot your keys. No one is home.
-> ga: Go to front desk | front_desk
-> gb: Call roommate and wait in panic | peed_pants
+forgot_key: You reach in your back pocket and find that you forgot your keys. No one is home.
+> ga: find a public bathroom | public_bathroom
+> gb: call roommate | peed_pants
 
-front_desk: You head to the front desk to request a new set of keys. Today was busy and there is a huge lineup.
-> ha: go out to pee in a bush | people_walking_by
+public_bathroom: You head to your local coffee store. There is a huge lineup for the bathroom.
 > hb: wait in line | wait_in_line
+> ha: go pee in a bush | people_walking_by
 
-wait_in_line: You decide to wait in line for your keys. You are growing impatient.
-> ia: demand to go first | demand_keys
-> ib: go out to pee in a bush | people_walking_by
+wait_in_line: You decide to wait in line. You are growing impatient.
+> ia: demand to go first | demand_pee
+> ib: go pee in a bush | people_walking_by
 
-demand_keys: You demand your keys but the receptionist glares at you.
+demand_pee: You demand to go first but the person glares at you.
 > ja: pee your pants in defiance | peed_pants
 
 END STATE #2: peed_pants: You peed your pants
@@ -42,29 +42,29 @@ people_walking_by: You see people walking by you.
 > la: pee anyway | campus_security
 > lb: wait for them to leave | need_to_go
 
-campus_security: Before you can start, campus security spots you and begins to chase after you
+campus_security: Before you can start, campus security spots you and begins to chase after you.
 > ma: run home | forgot_key
 > mb: run back to school | lost_in_school
 
-janitor_closet: You were misled and you end up in a janitor’s closet. You look in the back and notice what appears to be a wormhole
+janitor_closet: You were misled and you end up in a janitor’s closet. You look in the back and notice what appears to be a wormhole.
 > na: approach the wormhole | flying_toilets
 > nb: leave the closet | locked
 
-locked: the closet door is locked
+locked: the closet door is locked.
 > oa: cry in a corner | peed_pants
 > ob: enter the wormhole | flying_toilets
 
-flying_toilets: In the wormhole, you look around and see toilets flying past you.
+flying_toilets: In the wormhole, you look around and see golden toilets flying past you.
 > pa: try grabbing onto one | toilet_ride
 > pb: watch them fly by | exit_hole
 
-toilet_ride: You manage to grab onto one but notice the toilets are glued shut. Weird stuff.
+toilet_ride: You manage to grab onto one but notice the toilets are glued shut. You are now traversing a wormhole on a golden toilet. Weird stuff.
 > qa: try prying it open | exit_hole
 > qb: let go | exit_hole
 
 exit_hole: You fall out of the hole and end up back in the building where you first started. That was a strange experience. It’s a wonder how your bladder still hasn’t exploded yet.
 > ra: ask a passerby for directions | find_bathroom
 > rb: go home | friend
-> rc: pee in a bush | people_walking_by
+> rc: go pee in a bush | people_walking_by
 
-END STATE #1: find_bathroom:You can’t believe why you didn’t think of asking anyone earlier. You make it to the bathroom and carry on with your hackathon.
+END STATE #1: find_bathroom: You can’t believe why you didn’t think of asking anyone earlier. You make it to the bathroom and carry on with your hackathon. Quest: completed. 
