@@ -14,3 +14,8 @@ The content is also child friendly and amusing to a broad audience.
 When we got the game running on the Echo,
 we realized that some of the story’s lines did not sound fluid when spoken by
 Alexa.
+
+## Demo
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=qgQCpviGm5U
+" target="_blank"><img src="http://img.youtube.com/vi/qgQCpviGm5U/0.jpg" 
+alt="Demo Video" width="240" height="180" border="10" /></a>
