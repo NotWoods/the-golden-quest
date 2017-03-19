@@ -1,6 +1,5 @@
 # nwhacks-2017
-IN PROGRESS
-Hello Alexa's World
+![The Golden Quest](https://raw.githubusercontent.com/NotWoods/nwhacks-2017/master/best_logo.PNG)
 
 ## Inspiration
 We were interested in learning how to work with Amazon Web Services to
