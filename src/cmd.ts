@@ -18,10 +18,7 @@ function testAsk(nodeID: string, actionID?: string) {
 		console.log(message);
 		const story: StoryNode = handler.attributes.currentState;
 
-		askOne({
-			info: '\nType the ID of the action to take: \n('
-				+ story.actions.map(a => `${a.node}: ${a.message}`).join(', ') + ')'
-		}, (actionMsg: string) => {
+		askOne({ info: 'Type the action you want to take' }, (actionMsg: string) => {
 			console.log('');
 			testAsk(story.node, actionMsg);
 		});

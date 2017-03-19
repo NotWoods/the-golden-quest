@@ -15,12 +15,14 @@ function setNextState(handler: Alexa.Handler, action: Action) {
 	handler.attributes.currentState = nextState;
 }
 
-export function handleAction(handler: Alexa.Handler, action: Action) {
+export function handleAction(handler: Alexa.Handler, actions: Map<string, Action>) {
 	const currentState: StoryNode = handler.attributes.currentState || nodes.get('start');
 	if (!currentState) throw new Error();
+	const action = actions.get(currentState.message);
 
-	const isValidAction = currentState.actions.some(action => action.message === action.message);
-	if (!isValidAction) {
+	const isValidAction = action &&
+		currentState.actions.some(action => action.message === action.message);
+	if (!isValidAction || !action) {
 		throw new InvalidActionError();
 	}
 
@@ -72,10 +74,14 @@ export function readStory(handler: Alexa.Handler) {
 	}
 }
 
-export function getAllActions(): Map<string, Action> {
+export function getAllActions(): Map<string, Map<string, Action>> {
 	const allActions = new Map();
-	nodes.forEach(({ actions }) => {
-		actions.forEach(action => allActions.set(action.node, action));
+	nodes.forEach(node => {
+		node.actions.forEach(action => {
+			const { message } = action;
+			if (!allActions.has(message)) allActions.set(message, new Map());
+			allActions.get(message).set(node.message, action);
+		});
 	});
 	return allActions;
 }
@@ -84,8 +90,8 @@ export default function generateHandlers(): Alexa.Handlers {
 	const allActions = getAllActions();
 
 	const handlers: Alexa.Handlers = {};
-	allActions.forEach((action, id) => {
-		handlers[id] = function() { handleAction(this, action); }
+	allActions.forEach((actions, id) => {
+		handlers[id] = function() { handleAction(this, actions); }
 	})
 	return handlers;
 }

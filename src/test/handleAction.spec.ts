@@ -1,6 +1,8 @@
 import * as test from 'blue-tape';
-import { nodes, handleAction } from '../game';
+import { nodes, handleAction, getAllActions } from '../game';
 import makeHandler from './fakeHandler';
+
+const actionList = getAllActions();
 
 test('handleAction', t => {
 	const lost = nodes.get('lost_in_school');
@@ -13,7 +15,7 @@ test('handleAction', t => {
 		t.end();
 	});
 
-	handleAction(handlerTester, lost.actions[0]);
+	handleAction(handlerTester, actionList.get('run home'));
 })
 
 
