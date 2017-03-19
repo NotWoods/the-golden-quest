@@ -16,7 +16,7 @@
 			"type": "node",
 			"request": "launch",
 			"name": "Test",
-			"program": "${workspaceRoot}\\test\\parseStory.spec.ts",
+			"program": "${workspaceRoot}\\src\\test\\parseStory.spec.ts",
 			"outFiles": ["${workspaceRoot}\\out\\**"],
 			"preLaunchTask": "prepare"
 		},
