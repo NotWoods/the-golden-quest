@@ -16,13 +16,15 @@
   ],
   "dependencies": {
     "alexa-sdk": "^1.0.6",
-    "denodeify": "^1.2.1"
+    "denodeify": "^1.2.1",
+    "shortid": "^2.2.8"
   },
   "devDependencies": {
     "@types/alexa-sdk": "^1.0.4",
     "@types/blue-tape": "^0.1.30",
     "@types/denodeify": "^1.2.30",
     "@types/node": "^7.0.8",
+    "@types/shortid": "0.0.28",
     "blue-tape": "^1.0.0",
     "typescript": "^2.2.1"
   }
