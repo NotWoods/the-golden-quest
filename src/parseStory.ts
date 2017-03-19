@@ -29,7 +29,7 @@ export interface Action {
 
 export default function parseStory(text?: string) {
 	const data: string = text ? text : readFileSync(STORY_PATH, 'utf8');
-	const parts = data.trim().split(/(?:\r|\n|\r\n){3,}/);
+	const parts = data.trim().split(/(?:\r?\n){2,}/);
 
 	const nodes: Map<string, StoryNode> = parts.reduce(function addNode(map, node) {
 			if (/^\s*$/.test(node)) return map;

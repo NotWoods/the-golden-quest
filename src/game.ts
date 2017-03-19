@@ -5,8 +5,8 @@ export class InvalidActionError extends Error {};
 
 export const nodes: Map<string, StoryNode> = parseStory();
 
-export function handleAction(this: Alexa.Handler, action: Action) {
-	const currentState: StoryNode = this.attributes.currentState || nodes.get('start');
+export function handleAction(handler: Alexa.Handler, action: Action) {
+	const currentState: StoryNode = handler.attributes.currentState || nodes.get('start');
 	if (!currentState) throw new Error();
 
 	const isValidAction = currentState.actions.some(action => action.message === action.message);
@@ -15,9 +15,9 @@ export function handleAction(this: Alexa.Handler, action: Action) {
 	}
 
 	const nextState = nodes.get(action.next_id);
-	this.attributes.currentState = nextState;
+	handler.attributes.currentState = nextState;
 
-	readStory.call(this);
+	readStory(handler);
 }
 
 function createActionsMessage(actions: Action[]) {
@@ -30,21 +30,29 @@ function shouldPassThrough(node: StoryNode) {
 	return node.actions.some(action => action.message === PASS_THROUGH);
 }
 
-export function readStory(this: Alexa.Handler) {
-	const story = this.attributes.currentNode;
+export function readStory(handler: Alexa.Handler) {
+	const story = handler.attributes.currentState;
 
 	const { message } = story;
-	this.emit(':tell', message);
+	handler.emit(':tell', message);
 
 	if (shouldPassThrough(story)) {
-		readStory.call(this);
+		readStory(handler);
 	} else {
 		const askMessage = createActionsMessage(story.actions);
-		this.emit(':ask', askMessage, askMessage);
+		handler.emit(':ask', askMessage, askMessage);
 	}
 }
 
-
 export default function generateHandlers(): Alexa.Handlers {
+	const allActions = new Map();
+	for (const { actions } of nodes.values()) {
+		for (const action of actions) allActions.set(action.message, action);
+	}
 
+	const handlers: Alexa.Handlers = {};
+	for (const [id, action] of allActions) {
+		handlers[id] = function() { handleAction(this, action); }
+	}
+	return handlers;
 }

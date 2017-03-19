@@ -1,6 +1,6 @@
 import * as Alexa from 'alexa-sdk';
 // import { StoryNode, Action, PASS_THROUGH } from './parseStory';
-import { nodes } from './game';
+import generateHandlers, { nodes } from './game';
 
 export function handler(
 	event: Alexa.RequestBody,
@@ -10,6 +10,7 @@ export function handler(
 	alexa.registerHandlers(
 		newSessionHandlers,
 		helpStateHandlers,
+		generateHandlers(),
 	);
 	alexa.execute();
 }

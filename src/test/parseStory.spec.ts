@@ -1,5 +1,5 @@
 import * as test from 'blue-tape';
-import parseStory from '../src/parseStory';
+import parseStory from '../parseStory';
 
 test('parseStory', async (t) => {
 	console.log('Parsing story file...');
