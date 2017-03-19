@@ -1,32 +1,50 @@
-import { generate } from 'shortid';
-import parseStory, { Action } from './parseStory';
+import * as Alexa from 'alexa-sdk';
+import parseStory, { StoryNode, Action, PASS_THROUGH } from './parseStory';
 
-const games: Map<string, StoryNode> = new Map();
-const nodeLoader = parseStory();
+export class InvalidActionError extends Error {};
 
-export function newID(): string {
-	return generate();
-}
+export const nodes: Map<string, StoryNode> = parseStory();
 
-function handleHelp(currentState: StoryNode) {
+export function handleAction(this: Alexa.Handler, action: Action) {
+	const currentState: StoryNode = this.attributes.currentState || nodes.get('start');
+	if (!currentState) throw new Error();
 
-}
-
-export async function startGame(gameID: string): Promise<StoryNode> {
-	const nodes = await nodeLoader;
-	const start = nodes.get('start');
-
-	games.set(gameID, start);
-	return start;
-}
-
-export async function useAction(gameID: string, action: Action): Promise<StoryNode> {
-	const currentState = games.get(gameID);
-	const nextAction = currentState.actions.find(a => a.next_id === action.next_id);
-	if (!nextAction) {
-		throw new Error(`Invalid action, ${currentState.id} doesn't contain ${action.text}`);
+	const isValidAction = currentState.actions.some(action => action.message === action.message);
+	if (!isValidAction) {
+		throw new InvalidActionError();
 	}
 
-	games.set(gameID, nextAction.next);
-	return nextAction.next;
+	const nextState = nodes.get(action.next_id);
+	this.attributes.currentState = nextState;
+
+	readStory.call(this);
+}
+
+function createActionsMessage(actions: Action[]) {
+	const first = actions.slice(0, -1);
+	const last = actions[actions.length - 1];
+	return `Do you want to ${first.join(', ')} or ${last}`;
+}
+
+function shouldPassThrough(node: StoryNode) {
+	return node.actions.some(action => action.message === PASS_THROUGH);
+}
+
+export function readStory(this: Alexa.Handler) {
+	const story = this.attributes.currentNode;
+
+	const { message } = story;
+	this.emit(':tell', message);
+
+	if (shouldPassThrough(story)) {
+		readStory.call(this);
+	} else {
+		const askMessage = createActionsMessage(story.actions);
+		this.emit(':ask', askMessage, askMessage);
+	}
+}
+
+
+export default function generateHandlers(): Alexa.Handlers {
+
 }
