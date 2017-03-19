@@ -1,23 +1,16 @@
 import * as Alexa from 'alexa-sdk';
-import { readSampleUtterances } from './fs';
-import { StoryNode, Action, PASS_THROUGH } from './parseStory';
+import parseStory, { StoryNode, Action, PASS_THROUGH } from './parseStory';
 
-let nodes: Map<string, StoryNode>;
-const data = require('../speechAssets/IntentSchema.json');
-//var text = await readSampleUtterances();
-
-const APP_ID = ''; //TODO
+let nodes: Map<string, StoryNode> = parseStory();
 
 export function handler(
 	event: Alexa.RequestBody,
 	context: Alexa.Context,
-	callback: Function
 ) {
 	const alexa = Alexa.handler(event, context);
 	alexa.registerHandlers(
 		newSessionHandlers,
-		startGameHandlers,
-		askQuestionHandlers,
+		helpStateHandlers,
 	);
 	alexa.execute();
 }
@@ -40,10 +33,16 @@ const newSessionHandlers: Alexa.Handlers = {
 		if (!start) throw new Error('Missing start node');
 		this.emit(':ask', start.message);
 	},
+	"AMAZON.StartOverIntent"() {
+		this.handler.state = GAME_STATES.START;
+		const lost = nodes.get('lost_in_school');
+		if (!lost) throw new Error('Missing lost in school node');
+		this.emit(':ask', lost.message);
+	}
 }
 
 function handleAction(this: Alexa.Handler, action: Action) {
-	const currentState: StoryNode = this.attributes.currentState;
+	const currentState: StoryNode = this.attributes.currentState || nodes.get('start');
 	if (!currentState) throw new Error();
 
 	const isValidAction = currentState.actions.some(action => action.message === action.message);
@@ -82,69 +81,12 @@ function readStory(this: Alexa.Handler) {
 	}
 }
 
-var helpStateHandlers = Alexa.CreateStateHandler(GAME_STATES.HELP, {
-	"helpTheUser": function (newGame) {
-	   // var askMessage = newGame ? this.t("ASK_MESSAGE_START") : this.t("REPEAT_QUESTION_MESSAGE") + this.t("STOP_MESSAGE");
-		var speechOutput = this.t("HELP_MESSAGE", GAME_LENGTH) + askMessage;
-		var repromptText = this.t("HELP_REPROMPT") + askMessage;
-		this.emit(":ask", speechOutput, repromptText);
-	},
-	"AMAZON.StartOverIntent": function () {
+const helpStateHandlers = Alexa.CreateStateHandler(GAME_STATES.HELP, {
+	"AMAZON.StartOverIntent"(this: Alexa.Handler) {
 		this.handler.state = GAME_STATES.START;
 		this.emitWithState("StartGame", false);
 	},
-   /* "AMAZON.RepeatIntent": function () {
-		var newGame = (this.attributes["speechOutput"] && this.attributes["repromptText"]) ? false : true;
-		this.emitWithState("helpTheUser", newGame);
-	},
-	"AMAZON.HelpIntent": function() {
-		var newGame = (this.attributes["speechOutput"] && this.attributes["repromptText"]) ? false : true;
-		this.emitWithState("helpTheUser", newGame);
-	},
-	"AMAZON.YesIntent": function() {
-		if (this.attributes["speechOutput"] && this.attributes["repromptText"]) {
-			this.handler.state = GAME_STATES.TRIVIA;
-			this.emitWithState("AMAZON.RepeatIntent");
-		} else {
-			this.handler.state = GAME_STATES.START;
-			this.emitWithState("StartGame", false);
-		}
-	},
-	async "AMAZON.NoIntent"() {
-		var speechOutput = this.t("NO_MESSAGE");
-		this.emit(":tell", speechOutput);
-	},
-	"AMAZON.StopIntent": function () {
-		var speechOutput = this.t("STOP_MESSAGE");
-		this.emit(":ask", speechOutput, speechOutput);
-	},
-	"AMAZON.CancelIntent": function () {
-		this.emit(":tell", this.t("CANCEL_MESSAGE"));
-	},
-	"Unhandled": function () {
-		var speechOutput = this.t("HELP_UNHANDLED");
-		this.emit(":ask", speechOutput, speechOutput);
-	},
-	*/
-	"SessionEndedRequest": function () {
+	"SessionEndedRequest"(this: Alexa.Handler) {
 		console.log("Session ended in help state: " + this.event.request.reason);
 	},
 });
-
-var newSessionHandlers = {
-    "LaunchRequest": function () {
-        this.handler.state = GAME_STATES.START;
-        this.emitWithState("StartGame", true);
-    },
-    "AMAZON.StartOverIntent": function() {
-        this.handler.state = GAME_STATES.START;
-        this.emitWithState("StartGame", true);
-    }
-};
-
-var startStateHandlers = Alexa.CreateStateHandler(GAME_STATES.START, {
-    "StartGame": function (newGame) {
-        var speechOutput = newGame ? this.t("NEW_GAME_MESSAGE", this.t("GAME_NAME")) + this.t("WELCOME_MESSAGE"): "";
-    }
-});
-

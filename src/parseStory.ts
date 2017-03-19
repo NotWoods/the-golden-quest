@@ -1,9 +1,6 @@
-import * as fs from 'fs';
+import { readFileSync } from 'fs';
 import { resolve } from 'path';
-import * as denodeify from 'denodeify';
 import 'string.prototype.startswith';
-
-const readFile = denodeify(fs.readFile);
 
 export const PASS_THROUGH = '__PASS_THROUGH'
 const STORY_PATH = resolve(__dirname, '../story.txt');
@@ -30,8 +27,8 @@ export interface Action {
 	next_id: string
 }
 
-export default async function parseStory(text?: string) {
-	const data: string = text ? text : await readFile(STORY_PATH, 'utf8');
+export default function parseStory(text?: string) {
+	const data: string = text ? text : readFileSync(STORY_PATH, 'utf8');
 	const parts = data.trim().split(/(?:\r|\n|\r\n){3,}/);
 
 	const nodes: Map<string, StoryNode> = parts.reduce(function addNode(map, node) {
