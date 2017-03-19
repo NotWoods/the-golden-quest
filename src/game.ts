@@ -61,16 +61,17 @@ function shouldPassThrough(node: StoryNode) {
 	return node.actions.some(action => action.message === PASS_THROUGH);
 }
 
-export function readStory(handler: Alexa.Handler) {
+export function readStory(handler: Alexa.Handler, message = '') {
 	const story: StoryNode = handler.attributes.currentState;
 	if (!story) {
 		throw new Error('Invalid currentState!');
 	}
 
-	handler.emit(':tell', story.message);
+	message += story.message;
 
 	if (story.end_state) {
-		handler.emit(':tell', 'The game has ended');
+		message += 'The game has ended';
+		handler.emit(':tell', message);
 		return;
 	}
 
@@ -84,7 +85,8 @@ export function readStory(handler: Alexa.Handler) {
 		readStory(handler);
 	} else {
 		const askMessage = createActionsMessage(story.actions);
-		handler.emit(':ask', askMessage, askMessage);
+		message += askMessage;
+		handler.emit(':ask', message, askMessage);
 	}
 }
 
