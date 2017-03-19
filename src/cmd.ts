@@ -1,4 +1,4 @@
-import { askMany, askOne } from 'questions';
+import { askOne } from 'questions';
 import { nodes, handleAction, getAllActions } from './game';
 import makeHandler from './test/fakeHandler';
 
@@ -29,9 +29,14 @@ function testAsk(node: string, action: string) {
 	handleAction(handler, actionChoice);
 }
 
-askMany({
-	node: { info: 'Type the node ID of your starting state (default=start)' },
-	action: { info: 'What action do you want to take' },
-}, ({ node = 'start', action }: { [query: string]: string }) => {
-	testAsk(node, action);
+askOne({ info: 'Type the node ID of your starting state' }, (node: string) => {
+	const nodeChoice = nodes.get(node);
+	if (!nodeChoice) {
+		console.error('Invalid node ID');
+		return;
+	}
+
+	askOne({
+		info: `What action do you want to take (${nodeChoice.actions.map(a => a.message).join()})`
+	}, (action: string) => testAsk(node, action));
 })
