@@ -32,10 +32,10 @@ export function handleAction(handler: Alexa.Handler, actions: Map<string, Action
 		readStory(handler);
 	}
 
-	const isValidAction = action &&
-		currentState.actions.some(action => action.message === action.message);
-	if (!isValidAction || !action) {
-		throw new InvalidActionError('Invalid action');
+	const isValidAction = action && currentState.actions.some(action => action.message === action.message);
+	if (!action || !isValidAction) {
+		listActions(handler, `You can't do that right now. `);
+		return;
 	}
 
 	setNextState(handler, action);
