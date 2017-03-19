@@ -27,6 +27,7 @@ const json = JSON.parse(`{
 }`);
 
 test('handler', t => {
+	t.plan(3);
 	handler(json, {
     callbackWaitsForEmptyEventLoop: true,
     logGroupName: '',
@@ -36,12 +37,12 @@ test('handler', t => {
     functionVersion: '',
     invokeid: '',
     awsRequestId: '',
-		succeed(...args) {
+		succeed(...args: any[]) {
 			console.log('YES_ARGS:', ...args);
-			t.end();
+			t.pass();
 		},
-		fail(...args) {
-			console.log('NO_ARGS:', ...args)
+		fail() {
+			t.fail();
 			t.end();
 		}
 	}, () => {});
