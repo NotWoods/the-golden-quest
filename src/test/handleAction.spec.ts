@@ -10,8 +10,7 @@ test('handleAction', t => {
 	const handlerTester = makeHandler(lost);
 
 	handlerTester.on(':tell', (message: string) => {
-		t.equal(message,
-			"You meet your friend from your comp sci class. She tries to get a conversation going.");
+		t.equal(message, nodes.get('friend').message);
 		t.end();
 	});
 

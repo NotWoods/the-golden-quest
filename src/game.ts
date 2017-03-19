@@ -1,4 +1,5 @@
 import * as Alexa from 'alexa-sdk';
+import * as snakeCase from 'lodash.snakecase';
 import parseStory, { StoryNode, Action, PASS_THROUGH } from './parseStory';
 
 export class InvalidActionError extends Error {};
@@ -17,13 +18,26 @@ function setNextState(handler: Alexa.Handler, action: Action) {
 
 export function handleAction(handler: Alexa.Handler, actions: Map<string, Action>) {
 	const currentState: StoryNode = handler.attributes.currentState || nodes.get('start');
-	if (!currentState) throw new Error();
+	if (!currentState) throw new Error('Bad currentState');
+
 	const action = actions.get(currentState.message);
+
+	if (shouldPassThrough(currentState)) {
+		const nextAct = currentState.actions.find(a => a.message === PASS_THROUGH);
+		if (!nextAct) {
+			throw new Error(`Invalid pass-thru action in ${currentState.message}`);
+		}
+
+		setNextState(handler, nextAct);
+		readStory(handler);
+	}
 
 	const isValidAction = action &&
 		currentState.actions.some(action => action.message === action.message);
-	if (!isValidAction || !action) {
-		throw new InvalidActionError();
+	if (!action) {
+		throw new InvalidActionError('No action provided');
+	} else if (!isValidAction) {
+		throw new InvalidActionError('Invalid action');
 	}
 
 	setNextState(handler, action);
@@ -74,6 +88,11 @@ export function readStory(handler: Alexa.Handler) {
 	}
 }
 
+export function actionID(action: string | Action): string {
+	const msg = typeof action === 'string' ? action : action.message;
+	return snakeCase(msg).toUpperCase();
+}
+
 export function getAllActions(): Map<string, Map<string, Action>> {
 	const allActions = new Map();
 	nodes.forEach(node => {
@@ -91,7 +110,13 @@ export default function generateHandlers(): Alexa.Handlers {
 
 	const handlers: Alexa.Handlers = {};
 	allActions.forEach((actions, id) => {
-		handlers[id] = function() { handleAction(this, actions); }
+		handlers[actionID(id)] = function() {
+			try {
+				handleAction(this, actions);
+			} catch (err) {
+				this.emit(':tell', `Error: ${err.message}`);
+			}
+		}
 	})
 	return handlers;
 }
