@@ -22,6 +22,7 @@ if (process.argv[2] === 'utter') {
 		{ intent: 'AMAZON.StartOverIntent' },
 		{ intent: 'AMAZON.CancelIntent' },
 		{ intent: 'AMAZON.StopIntent' },
+		{ intent: 'AMAZON.PreviousIntent' },
 	)
 	console.log(JSON.stringify(json));
 } else {

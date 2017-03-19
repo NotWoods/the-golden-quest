@@ -59,11 +59,11 @@ function shouldPassThrough(node: StoryNode) {
 	return node.actions.some(action => action.message === PASS_THROUGH);
 }
 
-export function listActions(handler: Alexa.Handler) {
+export function listActions(handler: Alexa.Handler, base = '') {
 	const story: StoryNode = handler.attributes.currentState;
 	if (!story) throw new Error('Missing story state');
 	const askMessage = createActionsMessage(story.actions);
-	handler.emit(':ask', askMessage, askMessage);
+	handler.emit(':ask', base + askMessage, askMessage);
 }
 
 export function readStory(handler: Alexa.Handler, message = '') {

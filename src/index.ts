@@ -37,4 +37,8 @@ const newHandlers: Alexa.Handlers = {
 		this.attributes.currentState = nodes.get('start');
 		this.emit(':tell', 'Oh no, you peed your pants. The game has ended');
 	},
+	'AMAZON.PreviousIntent'() {
+		listActions(this,
+			'You wish you could undo your actions, but every decision in life is permanent. ');
+	}
 }
