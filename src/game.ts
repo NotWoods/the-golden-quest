@@ -67,10 +67,10 @@ export function readStory(handler: Alexa.Handler, message = '') {
 		throw new Error('Invalid currentState!');
 	}
 
-	message += story.message;
+	message += ' ' + story.message;
 
 	if (story.end_state) {
-		message += 'The game has ended';
+		message += ' The game has ended';
 		handler.emit(':tell', message);
 		return;
 	}
@@ -85,7 +85,7 @@ export function readStory(handler: Alexa.Handler, message = '') {
 		readStory(handler, message);
 	} else {
 		const askMessage = createActionsMessage(story.actions);
-		message += askMessage;
+		message += ' ' + askMessage;
 		handler.emit(':ask', message, askMessage);
 	}
 }
