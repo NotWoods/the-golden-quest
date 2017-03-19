@@ -74,9 +74,9 @@ export function readStory(handler: Alexa.Handler) {
 
 export function getAllActions(): Map<string, Action> {
 	const allActions = new Map();
-	for (const { actions } of nodes.values()) {
-		for (const action of actions) allActions.set(action.node, action);
-	}
+	nodes.forEach(({ actions }) => {
+		actions.forEach(action => allActions.set(action.node, action));
+	});
 	return allActions;
 }
 
@@ -84,8 +84,8 @@ export default function generateHandlers(): Alexa.Handlers {
 	const allActions = getAllActions();
 
 	const handlers: Alexa.Handlers = {};
-	for (const [id, action] of allActions) {
+	allActions.forEach((action, id) => {
 		handlers[id] = function() { handleAction(this, action); }
-	}
+	})
 	return handlers;
 }

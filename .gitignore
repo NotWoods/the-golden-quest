@@ -2,3 +2,4 @@ node_modules
 .vscode/settings.json
 out
 npm-debug.log
+*.zip

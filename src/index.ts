@@ -5,6 +5,7 @@ import generateHandlers, { nodes } from './game';
 export function handler(
 	event: Alexa.RequestBody,
 	context: Alexa.Context,
+	callback: Function,
 ) {
 	const alexa = Alexa.handler(event, context);
 	alexa.registerHandlers(
@@ -13,6 +14,7 @@ export function handler(
 		generateHandlers(),
 	);
 	alexa.execute();
+	callback();
 }
 
 var GAME_STATES = {
