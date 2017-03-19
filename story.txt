@@ -38,7 +38,7 @@ demand_keys: You demand your keys but the receptionist glares at you.
 
 END STATE #2: peed_pants: You peed your pants
 
-People_walking_by: You see people walking by you.
+people_walking_by: You see people walking by you.
 > la: pee anyway | campus_security
 > lb: wait for them to leave | need_to_go
 

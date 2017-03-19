@@ -1,4 +1,5 @@
 import * as test from 'blue-tape';
+import * as Alexa from 'alexa-sdk';
 import { handler } from '../index';
 
 const json = JSON.parse(`{
@@ -37,13 +38,24 @@ test('handler', t => {
     functionVersion: '',
     invokeid: '',
     awsRequestId: '',
-		succeed(...args: any[]) {
-			console.log('YES_ARGS:', ...args);
-			t.pass();
+		succeed(body: Alexa.ResponseBody) {
+			console.log(body);
+      const output = body.response.outputSpeech;
+      if (!output) {
+        t.fail('Missing outputSpeech');
+        return;
+      }
+
+      const text = output.type === 'SSML' ? output.ssml : output.text;
+      if (!text) {
+        t.fail('Missing text');
+        return;
+      }
+
+			t.pass(`RESPONSE: ${text}`);
 		},
 		fail() {
 			t.fail();
-			t.end();
 		}
 	}, () => {});
 })

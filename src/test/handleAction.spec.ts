@@ -9,8 +9,9 @@ test('handleAction', t => {
 	if (!lost) throw new Error();
 	const handlerTester = makeHandler(lost);
 
-	handlerTester.on(':tell', (message: string) => {
-		t.equal(message, nodes.get('friend').message);
+	handlerTester.on(':ask', (message: string) => {
+		const friendMsg = nodes.get('friend').message;
+		t.assert(message.includes(friendMsg), `asked message includes ${friendMsg}`);
 		t.end();
 	});
 
