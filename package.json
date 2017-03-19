@@ -2,6 +2,8 @@
   "name": "alexa-dungeon-crawler",
   "version": "1.0.0",
   "main": "out/index.js",
+  "description": "Text adventure game for Amazon Alexa",
+  "repository": "https://github.com/NotWoods/nwhacks-2017",
   "scripts": {
     "prepare": "tsc || exit 0",
     "prestart": "npm run prepare --silent",
