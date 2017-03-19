@@ -33,7 +33,7 @@ People_walking_by: You see people walking by you.
 > 81: wait for them to leave | need_to_go
 
 campus_security: Before you get started, campus security sees you and begins to chase after you
-> 90: run home | forgot_keys
+> 90: run home | forgot_key
 > 91: run back to school | lost_in_school
 
 janitor_closet: You were misled and you end up in a janitor’s closet.
