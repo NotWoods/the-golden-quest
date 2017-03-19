@@ -3,9 +3,15 @@ start: You are at a hackathon and have been coding for 7 hours straight. Taking 
 >> 0: lost_in_school
 
 lost_in_school : However, you realize you don’t know where the bathroom is in this building
+<<<<<<< Updated upstream
 > 20: run home | friend
 > 21: go outside to pee in a bush | people_walking_by
 > 22: take a look at the building directory | janitor_closet
+=======
+> run home | friend
+> go outside to pee in a bush | people_walking_by
+> take a look at the building directory | janitor_closet
+>>>>>>> Stashed changes
 
 friend: You meet your friend from your comp sci class. She tries to get a conversation going.
 > 30: Agree to chat | drones_on
@@ -25,6 +31,17 @@ need_to_go: YOU REALLY NEED TO GO
 forgot_key: You forgot your keys
 > 70: Go to front desk | front_desk
 > 71: Call roommate and wait in a panic | peed_pants
+
+front_desk: You head to the front desk to request a new set of keys. The desk is busy.
+> 150: go outside to pee in a bush | people_walking_by
+> 151: wait in line | wait_in_line
+
+wait_in_line: You decide to wait in line for your keys. The line is really long.
+> 160: demand to go first | demand_keys
+> 161: go outside to pee in a bush | people_walking_by
+
+demand_keys: You demand your keys but the receptionist glares at you. 
+> 170: pee your pants in defiance | peed_pants 
 
 END STATE #2: peed_pants: You peed your pants
 
