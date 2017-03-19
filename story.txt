@@ -1,25 +1,26 @@
-start: You are at a hackathon and have been coding for 7 hours straight. Taking advantage of all of the free soda and red bull supplied at the event, you realize that your bladder is quite full. However, you don’t know where the bathroom is in this building
->run home | friend
->go outside to pee in a bush | people_walking_by
->take a look at the building directory | map
+start: You are at a hackathon and have been coding for 7 hours straight. Taking advantage of all of the free soda and red bull supplied at the event, you realize that your bladder is quite full. However, you don’t know where the bathroom is in this building.
+> Run home. | friend
+> Go outside to pee in a bush. | people_walking_by
+> Take a look at the building directory. | map
 
 friend: You meet your friend
-> Agree to chat | drones_on
-> Cut off | need_to_go
+> Agree to chat. | drones_on
+> Cut off. | need_to_go
 
 need_to_go: YOU REALLY NEED TO GO
-> run home | forgot_key
+> Run home. | forgot_key
 
 forgot_key: You forgot your keys
-> Go to front desk |
-> Call roommate and wait in a panic | peed_pants
+> Go to front desk. |
+> Call roommate and wait in a panic. | peed_pants
 
-Peed_pants: You peed your pants
+Peed_pants: You peed your pants.
 
 
-From pee in a bush > There are people walking by
-> pull down your pants to pee
-> wait for them to leave
+From pee in a bush 
+> There are people walking by
+> Pull down your pants to pee.
+> Wait for them to leave.
 
 
 
