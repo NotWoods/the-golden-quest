@@ -1,10 +1,11 @@
 import * as fs from 'fs';
 import { resolve } from 'path';
 import * as denodeify from 'denodeify';
+import 'string.prototype.startswith';
 
 const readFile = denodeify(fs.readFile);
 
-const PASS_THROUGH = Symbol('PASS_THROUGH');
+export const PASS_THROUGH = '__PASS_THROUGH'
 const STORY_PATH = resolve(__dirname, '../story.txt');
 
 function partition<T>(filter: (item: T) => boolean, array: T[]): [T[], T[]] {
@@ -19,15 +20,14 @@ function partition<T>(filter: (item: T) => boolean, array: T[]): [T[], T[]] {
 }
 
 export interface StoryNode {
-	id: string
-	text: string
+	node: string
+	message: string
 	actions: Action[]
 }
 
 export interface Action {
-	text: string | symbol
+	message: string | symbol
 	next_id: string
-	next?: StoryNode
 }
 
 export default async function parseStory(text?: string) {
@@ -44,7 +44,7 @@ export default async function parseStory(text?: string) {
 			const actions: Action[] = actionsStr.map(function parseAction(action) {
 				if (action.startsWith('>>')) {
 					return {
-						text: PASS_THROUGH,
+						message: PASS_THROUGH,
 						next_id: action.slice(2).trim(),
 					};
 				}
@@ -56,7 +56,7 @@ export default async function parseStory(text?: string) {
 					throw new Error('Invalid action syntax: ' + action);
 				}
 
-				return { text: name[1].trim(), next_id: next[1].trim() };
+				return { message: name[1].trim(), next_id: next[1].trim() };
 			});
 
 			const colonLocation = text.indexOf(':');
@@ -67,14 +67,8 @@ export default async function parseStory(text?: string) {
 			const id = text.slice(0, colonLocation).trim();
 			text = text.slice(colonLocation + 1).trim();
 
-			return map.set(id, { id, text, actions });
+			return map.set(id, { node: id, message: text, actions });
 		}, new Map());
-
-	for (const node of nodes.values()) {
-		for (const action of node.actions) {
-			if (!action.next) action.next = nodes.get(action.next_id);
-		}
-	}
 
 	return nodes;
 }

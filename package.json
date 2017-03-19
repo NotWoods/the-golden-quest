@@ -17,7 +17,8 @@
   "dependencies": {
     "alexa-sdk": "^1.0.6",
     "denodeify": "^1.2.1",
-    "shortid": "^2.2.8"
+    "shortid": "^2.2.8",
+    "string.prototype.startswith": "^0.2.0"
   },
   "devDependencies": {
     "@types/alexa-sdk": "^1.0.4",
