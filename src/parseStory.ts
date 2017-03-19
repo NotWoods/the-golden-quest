@@ -20,11 +20,26 @@ export interface StoryNode {
 	node: string
 	message: string
 	actions: Action[]
+	end_state: boolean
 }
 
 export interface Action {
 	message: string | symbol
 	next_id: string
+}
+
+function parseAction(actionText: string): Action {
+	const name = actionText.match(/^>\s*([\w\s]+)\|/);
+	const next = actionText.match(/\|\s*(\w+)\s*$/);
+
+	if (name == null) {
+		throw new Error(`Action message in ${actionText} is invalid.`);
+	}
+	if (next == null) {
+		throw new Error(`Action's next_id in ${actionText} is invalid.`);
+	}
+
+	return { message: name[1].trim(), next_id: next[1].trim() };
 }
 
 export default function parseStory(text?: string) {
@@ -38,7 +53,7 @@ export default function parseStory(text?: string) {
 			const [actionsStr, textArr] = partition(line => line.startsWith('>'), lines);
 
 			let text = textArr.join('');
-			const actions: Action[] = actionsStr.map(function parseAction(action) {
+			const actions: Action[] = actionsStr.map((action) => {
 				if (action.startsWith('>>')) {
 					return {
 						message: PASS_THROUGH,
@@ -46,15 +61,14 @@ export default function parseStory(text?: string) {
 					};
 				}
 
-				const name = action.match(/^>\s*([\w\s]+)\|/);
-				const next = action.match(/\|\s*(\w+)\s*$/);
-
-				if (name == null || next == null) {
-					throw new Error('Invalid action syntax: ' + action);
-				}
-
-				return { message: name[1].trim(), next_id: next[1].trim() };
+				return parseAction(action);
 			});
+
+			let end_state = false;
+			if (text.startsWith('END STATE')) {
+				end_state = true;
+				text = text.slice(text.indexOf(':') + 1);
+			}
 
 			const colonLocation = text.indexOf(':');
 			if (colonLocation == -1) {
@@ -64,7 +78,7 @@ export default function parseStory(text?: string) {
 			const id = text.slice(0, colonLocation).trim();
 			text = text.slice(colonLocation + 1).trim();
 
-			return map.set(id, { node: id, message: text, actions });
+			return map.set(id, { node: id, message: text, actions, end_state });
 		}, new Map());
 
 	return nodes;
