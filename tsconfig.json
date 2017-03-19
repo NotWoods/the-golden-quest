@@ -10,7 +10,7 @@
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"suppressImplicitAnyIndexErrors": true,
-		"allowSyntheticDefaultImports": true,
+		"sourceMap": true,
 
 		"target": "es2015",
 		"lib": [
@@ -23,7 +23,8 @@
 		"outDir": "out"
 	},
 	"include": [
-		"src/**/*"
+		"src/**/*",
+		"test/**/*"
 	],
 	"exclude": [
 		"node_modules"

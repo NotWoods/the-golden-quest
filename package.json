@@ -1,12 +1,13 @@
 {
   "name": "alexa-dungeon-crawler",
   "version": "1.0.0",
-  "main": "out/index.js",
+  "main": "out/src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "prepare": "tsc",
-    "prestart": "npm run prepare --silent || exit 0",
-    "start": "node out/index.js"
+    "prepare": "tsc || exit 0",
+    "prestart": "npm run prepare --silent",
+    "start": "node out/src/index.js",
+    "pretest": "npm run prepare --silent > nul",
+    "test": "tape out/test/**/*.js"
   },
   "keywords": [
     "alexa",
@@ -15,12 +16,16 @@
   ],
   "dependencies": {
     "alexa-sdk": "^1.0.6",
-    "denodeify": "^1.2.1"
+    "denodeify": "^1.2.1",
+    "shortid": "^2.2.8"
   },
   "devDependencies": {
     "@types/alexa-sdk": "^1.0.4",
+    "@types/blue-tape": "^0.1.30",
     "@types/denodeify": "^1.2.30",
     "@types/node": "^7.0.8",
+    "@types/shortid": "0.0.28",
+    "blue-tape": "^1.0.0",
     "typescript": "^2.2.1"
   }
 }
