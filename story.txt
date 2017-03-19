@@ -8,7 +8,7 @@ lost_in_school : However, you don’t know where the bathroom is.
 > bc: look at the building directory | janitor_closet
 
 friend: You bump into your friend from your computer science class. She needs to tell you something. 
-> ca: Agree to stay | drones_on
+> ca: listen to her | drones_on
 > cb: Avoid conversation | kicks_bladder
 
 drones_on: You friend begins to ramble on about algorithms and quantum mechanics. You can't hold on for much longer.
@@ -47,8 +47,9 @@ campus_security: Before you can start, campus security spots you and begins to c
 > mb: run back to school | lost_in_school
 
 janitor_closet: You were misled and you end up in a janitor’s closet. You look in the back and notice what appears to be a wormhole.
-> na: approach the wormhole | flying_toilets
 > nb: leave the closet | locked
+> na: approach the wormhole | flying_toilets
+
 
 locked: the closet door is locked.
 > oa: cry in a corner | peed_pants
