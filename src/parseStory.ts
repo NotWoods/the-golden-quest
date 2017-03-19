@@ -55,6 +55,10 @@ let passThrus = 1000;
 
 export default function parseStory(text?: string) {
 	const data: string = text ? text : readFileSync(STORY_PATH, 'utf8');
+	if (data.includes('<<<<<<<')) {
+		throw new Error('Make sure there are no git conflicts in story.txt');
+	}
+
 	const parts = data.trim().split(/(?:\r?\n){2,}/);
 
 	const nodes: Map<string, StoryNode> = parts.reduce(function addNode(map, node) {
