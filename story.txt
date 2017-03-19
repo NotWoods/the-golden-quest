@@ -2,7 +2,7 @@
 start: You are at a hackathon and have been coding for 7 hours straight. Taking advantage of all of the free soda and red bull supplied at the event, you realize that your bladder is quite full.
 >> aa: lost_in_school
 
-lost_in_school : However, you realize you don’t know where the bathroom is in this building
+lost_in_school : However, you realize you don’t know where the bathroom is in this building.
 > ba: run home | friend
 > bb: go out to pee in a bush | people_walking_by
 > bc: look at the building directory | janitor_closet

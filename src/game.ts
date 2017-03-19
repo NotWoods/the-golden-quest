@@ -82,7 +82,7 @@ export function readStory(handler: Alexa.Handler, message = '') {
 		}
 
 		setNextState(handler, nextAct);
-		readStory(handler);
+		readStory(handler, message);
 	} else {
 		const askMessage = createActionsMessage(story.actions);
 		message += askMessage;
