@@ -2,6 +2,7 @@ import * as Alexa from 'alexa-sdk';
 import { readSampleUtterances } from './fs';
 
 const data = require('../speechAssets/IntentSchema.json');
+var text = await readSampleUtterances();
 
 const APP_ID = ''; //TODO
 
@@ -21,6 +22,12 @@ export function handler(
 	);
 	alexa.execute();
 }
+
+var GAME_STATES = {
+    START: "_STARTMODE", // Entry point, start the game.
+    END:   "_ENDMODE", // Ending point, end the game.
+    HELP: "_HELPMODE" // The user is asking for help.
+};
 
 var languageString = {
     "en": {
@@ -43,10 +50,8 @@ var languageString = {
             "ANSWER_CORRECT_MESSAGE": "correct. ",
             "ANSWER_WRONG_MESSAGE": "wrong. ",
             "CORRECT_ANSWER_MESSAGE": "The correct answer is %s: %s. ",
-            "ANSWER_IS_MESSAGE": "That answer is ",
-            "TELL_QUESTION_MESSAGE": "Question %s. %s ",
-            "GAME_OVER_MESSAGE": "You got %s out of %s questions correct. Thank you for playing!",
-            "SCORE_IS_MESSAGE": "Your score is %s. "
+            "GAME_OVER_MESSAGE": "stub",
+            
         }
     }
 };
@@ -60,19 +65,19 @@ var newSessionHandlers = {
         this.handler.state = GAME_STATES.START;
         this.emitWithState("StartGame", true);
     },
-    "AMAZON.HelpIntent": function() {
+   /* "AMAZON.HelpIntent": function() {
         this.handler.state = GAME_STATES.HELP;
         this.emitWithState("helpTheUser", true);
     },
     "Unhandled": function () {
         var speechOutput = this.t("START_UNHANDLED");
-        this.emit(":ask", speechOutput, speechOutput);
+        this.emit(":ask", speechOutput, speechOutput); */
     }
 };
 
 var helpStateHandlers = Alexa.CreateStateHandler(GAME_STATES.HELP, {
     "helpTheUser": function (newGame) {
-        var askMessage = newGame ? this.t("ASK_MESSAGE_START") : this.t("REPEAT_QUESTION_MESSAGE") + this.t("STOP_MESSAGE");
+       // var askMessage = newGame ? this.t("ASK_MESSAGE_START") : this.t("REPEAT_QUESTION_MESSAGE") + this.t("STOP_MESSAGE");
         var speechOutput = this.t("HELP_MESSAGE", GAME_LENGTH) + askMessage;
         var repromptText = this.t("HELP_REPROMPT") + askMessage;
         this.emit(":ask", speechOutput, repromptText);
@@ -81,14 +86,14 @@ var helpStateHandlers = Alexa.CreateStateHandler(GAME_STATES.HELP, {
         this.handler.state = GAME_STATES.START;
         this.emitWithState("StartGame", false);
     },
-    "AMAZON.RepeatIntent": function () {
+   /* "AMAZON.RepeatIntent": function () {
         var newGame = (this.attributes["speechOutput"] && this.attributes["repromptText"]) ? false : true;
         this.emitWithState("helpTheUser", newGame);
-    },
+    }, 
     "AMAZON.HelpIntent": function() {
         var newGame = (this.attributes["speechOutput"] && this.attributes["repromptText"]) ? false : true;
         this.emitWithState("helpTheUser", newGame);
-    },
+    }, 
     "AMAZON.YesIntent": function() {
         if (this.attributes["speechOutput"] && this.attributes["repromptText"]) {
             this.handler.state = GAME_STATES.TRIVIA;
@@ -99,7 +104,6 @@ var helpStateHandlers = Alexa.CreateStateHandler(GAME_STATES.HELP, {
         }
     },
     async "AMAZON.NoIntent"() {
-		var text = await readSampleUtterances();
         var speechOutput = this.t("NO_MESSAGE");
         this.emit(":tell", speechOutput);
     },
@@ -113,7 +117,8 @@ var helpStateHandlers = Alexa.CreateStateHandler(GAME_STATES.HELP, {
     "Unhandled": function () {
         var speechOutput = this.t("HELP_UNHANDLED");
         this.emit(":ask", speechOutput, speechOutput);
-    },
+    }, 
+    */
     "SessionEndedRequest": function () {
         console.log("Session ended in help state: " + this.event.request.reason);
     }
