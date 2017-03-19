@@ -23,7 +23,7 @@ need_to_go: You really need to go. You begin to hallucinate about waterfalls. Yo
 
 forgot_key: You reach in your back pocket and find that you forgot your keys. No one is home.
 > ga: find a public bathroom | public_bathroom
-> gb: call roommate | peed_pants
+> gb: call roommate and wait | peed_pants
 
 public_bathroom: You head to your local coffee store. There is a huge lineup for the bathroom.
 > hb: wait in line | wait_in_line
@@ -36,7 +36,7 @@ wait_in_line: You decide to wait in line. You are growing impatient.
 demand_pee: You demand to go first but the person glares at you.
 > ja: pee your pants in defiance | peed_pants
 
-END STATE #2: peed_pants: You peed your pants
+END STATE #2: peed_pants: You peed your pants. Quest: failed. 
 
 people_walking_by: You see people walking by you.
 > la: pee anyway | campus_security
