@@ -1,4 +1,5 @@
-# nwhacks-2017
+# "Alexa, open The Golden Quest"
+
 ![The Golden Quest](https://raw.githubusercontent.com/NotWoods/nwhacks-2017/master/best_logo.PNG)
 
 ## Inspiration
