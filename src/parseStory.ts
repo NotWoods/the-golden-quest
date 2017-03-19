@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import { resolve } from 'path';
-import denodeify from 'denodeify';
+import * as denodeify from 'denodeify';
 
 const readFile = denodeify(fs.readFile);
 
@@ -31,10 +31,12 @@ export interface Action {
 }
 
 export default async function parseStory(text?: string) {
-	const data: string = text ? await readFile(STORY_PATH, 'utf8') : text;
+	const data: string = text ? text : await readFile(STORY_PATH, 'utf8');
+	const parts = data.trim().split(/(?:\r|\n|\r\n){3,}/);
 
-	const nodes: Map<string, StoryNode> = data.trim()
-		.split(/(?:\r|\n|\r\n){2,}/).reduce(function addNode(map, node) {
+	const nodes: Map<string, StoryNode> = parts.reduce(function addNode(map, node) {
+			if (/^\s*$/.test(node)) return map;
+
 			const lines = node.split(/(?:\r|\n|\r\n)/);
 			const [actionsStr, textArr] = partition(line => line.startsWith('>'), lines);
 

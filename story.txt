@@ -1,25 +1,60 @@
-start: You are at a hackathon and have been coding for 7 hours straight. Taking advantage of all of the free soda and red bull supplied at the event, you realize that your bladder is quite full. However, you don’t know where the bathroom is in this building
+start: You are at a hackathon and have been coding for 7 hours straight. Taking advantage of all of the free soda and red bull supplied at the event, you realize that your bladder is quite full.
+>> lost_in_school
+
+lost_in_school : However, you realize you don’t know where the bathroom is in this building
 >run home | friend
 >go outside to pee in a bush | people_walking_by
->take a look at the building directory | map
+>take a look at the building directory | janitor_closet
 
-friend: You meet your friend
+friend: You meet your friend from your comp sci class. She tries to get a conversation going.
 > Agree to chat | drones_on
 > Cut off | need_to_go
+
+drones_ on: You friend begins babbling on about world politics and her comp sci homework..
+You are unable to be polite any longer.
+> run away | need_to_go
+> cut her off | kicks_bladder
+
+kicks_bladder: Your friend throws a fit and kicks you in the bladder.
+>> peed_pants
 
 need_to_go: YOU REALLY NEED TO GO
 > run home | forgot_key
 
 forgot_key: You forgot your keys
-> Go to front desk |
+> Go to front desk | front_desk
 > Call roommate and wait in a panic | peed_pants
 
-Peed_pants: You peed your pants
+END STATE #2: Peed_pants: You peed your pants
 
+People_walking_by: You see people walking by you.
+> pee anyway | campus_security
+> wait for them to leave | need_to_go
 
-From pee in a bush > There are people walking by
-> pull down your pants to pee
-> wait for them to leave
+campus_security: Before you get started, campus security sees you and begins to chase after you
+> run home | forgot_keys
+> run back to school | lost_in_school
 
+janitor_closet: You were misled and you end up in a janitor’s closet.
+You look in the back and notice what appears to be a wormhole
+> approach the wormhole | flying_toilets
+> leave the closet | locked
 
+Locked: the closet door is locked
+> cry | peed_pants
+> enter the wormhole | flying_toilets
 
+Flying_toilets: In the wormhole, you look around and see toilets flying past you.
+> try grabbing onto one | toilet_ride
+> watch them fly by | exit_hole
+
+Toilet_ride: You manage to grab onto one but notice the toilets are glued shut. Weird stuff.
+> try to pry it open | exit_hole
+> let go | exit_hole
+
+Exit_hole: That was a strange experience. You fall out of the hole and end up back in the building where you first started. It’s a wonder how your bladder still hasn’t exploded already.
+> ask a passerby for directions | find_bathroom
+> go home | friend
+> pee in a bush | people_walking_by
+
+END STATE #1: find_bathroom:You can’t believe why you didn’t think of asking someone earlier. You make it to the bathroom and carry on with your hackathon.

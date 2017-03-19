@@ -1,5 +1,3 @@
-import StoryNode from './StoryNode';
-
 export default class Player {
 	state: StoryNode;
 
