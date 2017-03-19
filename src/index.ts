@@ -4,7 +4,7 @@ import { StoryNode, Action, PASS_THROUGH } from './parseStory';
 
 let nodes: Map<string, StoryNode>;
 const data = require('../speechAssets/IntentSchema.json');
-var text = await readSampleUtterances();
+//var text = await readSampleUtterances();
 
 const APP_ID = ''; //TODO
 
@@ -25,10 +25,10 @@ export function handler(
 var GAME_STATES = {
 	START: "_STARTMODE", // Entry point, start the game.
 	END:   "_ENDMODE", // Ending point, end the game.
-	HELP: "_HELPMODE" // The user is asking for help.
+	HELP: "_HELPMODE", // The user is asking for help.
 
-	SAYING_STORY: "_STORY" // Alexa is saying the message
-	SAYING_ACTIONS: "_ACTIONS" // Alexa is talking about the actions
+	SAYING_STORY: "_STORY", // Alexa is saying the message
+	SAYING_ACTIONS: "_ACTIONS", // Alexa is talking about the actions
 };
 
 class InvalidActionError extends Error {};
@@ -128,11 +128,23 @@ var helpStateHandlers = Alexa.CreateStateHandler(GAME_STATES.HELP, {
 	*/
 	"SessionEndedRequest": function () {
 		console.log("Session ended in help state: " + this.event.request.reason);
-	}
+	},
 });
 
+var newSessionHandlers = {
+    "LaunchRequest": function () {
+        this.handler.state = GAME_STATES.START;
+        this.emitWithState("StartGame", true);
+    },
+    "AMAZON.StartOverIntent": function() {
+        this.handler.state = GAME_STATES.START;
+        this.emitWithState("StartGame", true);
+    }
+};
 
+var startStateHandlers = Alexa.CreateStateHandler(GAME_STATES.START, {
+    "StartGame": function (newGame) {
+        var speechOutput = newGame ? this.t("NEW_GAME_MESSAGE", this.t("GAME_NAME")) + this.t("WELCOME_MESSAGE"): "";
+    }
+});
 
-function hi() {
-	console.log("Hello");
-}

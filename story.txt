@@ -1,3 +1,4 @@
+
 start: You are at a hackathon and have been coding for 7 hours straight. Taking advantage of all of the free soda and red bull supplied at the event, you realize that your bladder is quite full.
 >> lost_in_school
 
@@ -10,6 +11,7 @@ friend: You meet your friend from your comp sci class. She tries to get a conver
 > Agree to chat | drones_on
 > Cut off | need_to_go
 
+
 drones_ on: You friend begins babbling on about world politics and her comp sci homework..
 You are unable to be polite any longer.
 > run away | need_to_go
@@ -19,7 +21,7 @@ kicks_bladder: Your friend throws a fit and kicks you in the bladder.
 >> peed_pants
 
 need_to_go: YOU REALLY NEED TO GO
-> run home | forgot_key
+> Run home. | forgot_key
 
 forgot_key: You forgot your keys
 > Go to front desk | front_desk
