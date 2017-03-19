@@ -51,7 +51,7 @@ janitor_closet: You were misled and you end up in a janitor’s closet. You look
 > nb: leave the closet | locked
 
 locked: the closet door is locked
-> oa: cry | peed_pants
+> oa: cry in a corner | peed_pants
 > ob: enter the wormhole | flying_toilets
 
 flying_toilets: In the wormhole, you look around and see toilets flying past you.
