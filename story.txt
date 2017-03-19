@@ -19,7 +19,7 @@ kicks_bladder: Your friend throws a fit and kicks you in the bladder.
 >> ea: peed_pants
 
 need_to_go: You really need to go.
-> fa: run home | forgot_key
+>> fa: forgot_key
 
 forgot_key: You reach in your back pocket and realize that you forgot your keys. No one is home.
 > ga: Go to front desk | front_desk

@@ -50,7 +50,7 @@ function createActionsMessage(actions: Action[]) {
 	const last = messages[messages.length - 1];
 
 	if (first.length > 0)
-		return `Do you want to: ${first.join(', ')} or ${last}?`;
+		return `Do you want to: ${first.join(', ')}, or ${last}?`;
 	else
 		return `Do you want to: ${last}?`
 }
