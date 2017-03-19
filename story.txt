@@ -29,7 +29,7 @@ forgot_key: You forgot your keys
 
 END STATE #2: peed_pants: You peed your pants
 
-People_walking_by: You see people walking by you.
+people_walking_by: You see people walking by you.
 > pee anyway | campus_security
 > wait for them to leave | need_to_go
 
