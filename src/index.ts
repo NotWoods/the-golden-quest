@@ -12,6 +12,7 @@ export function handler(
 ) {
 	const alexa = Alexa.handler(event, context);
 	alexa.appId = APP_ID;
+    alexa.resources = languageString;
 	alexa.registerHandlers(
 		newSessionHandlers,
 		startStateHandlers,
@@ -24,7 +25,7 @@ export function handler(
 var languageString = {
     "en": {
         "translation": {
-            "QUESTIONS" : questions["QUESTIONS_EN_US"],
+            // "QUESTIONS" : questions["QUESTIONS_EN_US"],
             "GAME_NAME" : "Where is the bathroom?", // Be sure to change this for your skill.
             "HELP_MESSAGE": "I will ask you %s multiple choice questions. Respond with the number of the answer. " + //Needed
             "For example, say one, two, three, or four. To start a new game at any time, say, start game. ",
