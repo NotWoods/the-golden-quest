@@ -21,9 +21,15 @@ export function handleAction(handler: Alexa.Handler, action: Action) {
 }
 
 function createActionsMessage(actions: Action[]) {
-	const first = actions.slice(0, -1);
-	const last = actions[actions.length - 1];
-	return `Do you want to ${first.join(', ')} or ${last}`;
+	const messages = actions.map(a => a.message);
+
+	const first = messages.slice(0, -1);
+	const last = messages[messages.length - 1];
+
+	if (first.length > 0)
+		return `Do you want to ${first.join(', ')} or ${last}?`;
+	else
+		return `Do you want to ${last}?`
 }
 
 function shouldPassThrough(node: StoryNode) {

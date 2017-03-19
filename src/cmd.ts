@@ -22,7 +22,7 @@ function testAsk(node: string, action: string) {
 		console.log(message);
 
 		askOne({ info: 'What action do you want to take' }, (action: string) => {
-			testAsk(handler.attributes.currentState, action);
+			testAsk(handler.attributes.currentState.node, action);
 		});
 	});
 
@@ -30,8 +30,8 @@ function testAsk(node: string, action: string) {
 }
 
 askMany({
-	node: { info: 'Type the node ID of your starting state' },
+	node: { info: 'Type the node ID of your starting state (default=start)' },
 	action: { info: 'What action do you want to take' },
-}, ({ node, action }: { [query: string]: string }) => {
+}, ({ node = 'start', action }: { [query: string]: string }) => {
 	testAsk(node, action);
 })
