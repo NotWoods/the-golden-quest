@@ -5,7 +5,7 @@
   "scripts": {
     "prepare": "tsc || exit 0",
     "prestart": "npm run prepare --silent",
-    "start": "node out/index.js",
+    "start": "node out/cmd",
     "pretest": "npm run prepare --silent",
     "test": "tape out/test/**/*.spec.js"
   },

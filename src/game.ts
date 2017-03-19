@@ -15,6 +15,11 @@ export function handleAction(handler: Alexa.Handler, action: Action) {
 	}
 
 	const nextState = nodes.get(action.next_id);
+	if (!nextState) {
+		throw new Error(
+			`No nextState found for action! next state: ${action.next_id}, action: ${action.message}`
+		);
+	}
 	handler.attributes.currentState = nextState;
 
 	readStory(handler);
@@ -38,6 +43,9 @@ function shouldPassThrough(node: StoryNode) {
 
 export function readStory(handler: Alexa.Handler) {
 	const story = handler.attributes.currentState;
+	if (!story) {
+		throw new Error('Invalid currentState!');
+	}
 
 	const { message } = story;
 	handler.emit(':tell', message);
