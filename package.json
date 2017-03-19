@@ -7,7 +7,7 @@
     "prestart": "npm run prepare --silent",
     "start": "node out/index.js",
     "pretest": "npm run prepare --silent > nul",
-    "test": "tape out/test/**/*.js"
+    "test": "tape out/test/**/*.spec.js"
   },
   "keywords": [
     "alexa",
@@ -17,6 +17,7 @@
   "dependencies": {
     "alexa-sdk": "^1.0.6",
     "denodeify": "^1.2.1",
+    "questions": "0.0.6",
     "shortid": "^2.2.8",
     "string.prototype.startswith": "^0.2.0"
   },

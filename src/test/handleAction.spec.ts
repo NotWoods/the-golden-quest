@@ -1,14 +1,6 @@
 import * as test from 'blue-tape';
-import { EventEmitter } from 'events';
-import { Handler } from 'alexa-sdk';
 import { nodes, handleAction } from '../game';
-import { StoryNode } from '../parseStory';
-
-function makeHandler(state: StoryNode): Handler {
-	const handler: Handler = new EventEmitter();
-	handler.attributes = { currentState: state };
-	return handler;
-}
+import makeHandler from './fakeHandler';
 
 test('handleAction', t => {
 	const lost = nodes.get('lost_in_school');

@@ -1,7 +1,7 @@
 import * as test from 'blue-tape';
 import parseStory from '../parseStory';
 
-test('parseStory', async (t) => {
+test('parseStory', async () => {
 	console.log('Parsing story file...');
 	const nodes = await parseStory();
 

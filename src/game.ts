@@ -44,6 +44,14 @@ export function readStory(handler: Alexa.Handler) {
 	}
 }
 
+export function getAllActions(): Map<string, Action> {
+	const allActions = new Map();
+	for (const { actions } of nodes.values()) {
+		for (const action of actions) allActions.set(action.message, action);
+	}
+	return allActions;
+}
+
 export default function generateHandlers(): Alexa.Handlers {
 	const allActions = new Map();
 	for (const { actions } of nodes.values()) {
