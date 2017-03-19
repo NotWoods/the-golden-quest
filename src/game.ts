@@ -34,9 +34,7 @@ export function handleAction(handler: Alexa.Handler, actions: Map<string, Action
 
 	const isValidAction = action &&
 		currentState.actions.some(action => action.message === action.message);
-	if (!action) {
-		throw new InvalidActionError('No action provided');
-	} else if (!isValidAction) {
+	if (!isValidAction || !action) {
 		throw new InvalidActionError('Invalid action');
 	}
 
@@ -116,7 +114,14 @@ export default function generateHandlers(): Alexa.Handlers {
 			try {
 				handleAction(this, actions);
 			} catch (err) {
-				this.emit(':tell', `Error: ${err.message}`);
+				if (err instanceof InvalidActionError) {
+					const story: StoryNode = this.attributes.currentState;
+					if (!story) throw new Error('Missing story state');
+					const askMessage = createActionsMessage(story.actions);
+					this.emit(':ask', askMessage, askMessage);
+				} else {
+					this.emit(':tell', `Error: ${err.message}`);
+				}
 			}
 		}
 	})
