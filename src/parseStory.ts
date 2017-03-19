@@ -24,14 +24,19 @@ export interface StoryNode {
 }
 
 export interface Action {
+	node: string
 	message: string | symbol
 	next_id: string
 }
 
 function parseAction(actionText: string): Action {
-	const name = actionText.match(/^>\s*([\w\s]+)\|/);
+	const id = actionText.match(/^>\s*([\w]+)\s*:/);
+	const name = actionText.match(/:\s*([\w\s]+)\|/);
 	const next = actionText.match(/\|\s*(\w+)\s*$/);
 
+	if (id == null) {
+		throw new Error(`Action ID in ${actionText} is invalid.`);
+	}
 	if (name == null) {
 		throw new Error(`Action message in ${actionText} is invalid.`);
 	}
@@ -39,8 +44,14 @@ function parseAction(actionText: string): Action {
 		throw new Error(`Action's next_id in ${actionText} is invalid.`);
 	}
 
-	return { message: name[1].trim(), next_id: next[1].trim() };
+	return {
+		node: id[1].trim(),
+		message: name[1].trim(),
+		next_id: next[1].trim(),
+	};
 }
+
+let passThrus = 1000;
 
 export default function parseStory(text?: string) {
 	const data: string = text ? text : readFileSync(STORY_PATH, 'utf8');
@@ -55,9 +66,15 @@ export default function parseStory(text?: string) {
 			let text = textArr.join('');
 			const actions: Action[] = actionsStr.map((action) => {
 				if (action.startsWith('>>')) {
+					const colonLocation = action.indexOf(':');
+					if (colonLocation === -1) {
+						throw new Error(`Invalid pass-thru action ${action}`);
+					}
+
 					return {
+						node: String(passThrus++),
 						message: PASS_THROUGH,
-						next_id: action.slice(2).trim(),
+						next_id: action.slice(colonLocation + 1).trim(),
 					};
 				}
 
