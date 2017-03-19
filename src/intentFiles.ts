@@ -15,7 +15,14 @@ if (process.argv[2] === 'utter') {
 	actions.forEach((actions, message) => {
 		if (message === PASS_THROUGH) return;
 		json.intents.push({ intent: `${prefix}${actionID(message)}` });
-	})
+	});
+	json.intents.push(
+		{ intent: 'AMAZON.HelpIntent' },
+		{ intent: 'AMAZON.RepeatIntent' },
+		{ intent: 'AMAZON.StartOverIntent' },
+		{ intent: 'AMAZON.CancelIntent' },
+		{ intent: 'AMAZON.StopIntent' },
+	)
 	console.log(JSON.stringify(json));
 } else {
 	console.error('Please use either "utter" or "json"');

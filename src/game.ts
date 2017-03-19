@@ -59,6 +59,13 @@ function shouldPassThrough(node: StoryNode) {
 	return node.actions.some(action => action.message === PASS_THROUGH);
 }
 
+export function listActions(handler: Alexa.Handler) {
+	const story: StoryNode = handler.attributes.currentState;
+	if (!story) throw new Error('Missing story state');
+	const askMessage = createActionsMessage(story.actions);
+	handler.emit(':ask', askMessage, askMessage);
+}
+
 export function readStory(handler: Alexa.Handler, message = '') {
 	const story: StoryNode = handler.attributes.currentState;
 	if (!story) {
@@ -115,10 +122,7 @@ export default function generateHandlers(): Alexa.Handlers {
 				handleAction(this, actions);
 			} catch (err) {
 				if (err instanceof InvalidActionError) {
-					const story: StoryNode = this.attributes.currentState;
-					if (!story) throw new Error('Missing story state');
-					const askMessage = createActionsMessage(story.actions);
-					this.emit(':ask', askMessage, askMessage);
+					listActions(this);
 				} else {
 					this.emit(':tell', `Error: ${err.message}`);
 				}
