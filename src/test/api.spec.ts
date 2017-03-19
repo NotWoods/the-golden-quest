@@ -27,7 +27,7 @@ const json = JSON.parse(`{
 }`);
 
 test('handler', t => {
-	t.plan(3);
+	t.plan(1);
 	handler(json, {
     callbackWaitsForEmptyEventLoop: true,
     logGroupName: '',
