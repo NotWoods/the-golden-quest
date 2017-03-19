@@ -1,8 +1,8 @@
 {
-  "name": "alexa-dungeon-crawler",
-  "version": "1.1.0",
+  "name": "the-golden-quest",
+  "version": "1.1.1",
   "main": "out/index.js",
-  "description": "Text adventure game for Amazon Alexa",
+  "description": "Navigate through this interactive audio quest on Amazon Echo with only your voice and wits.",
   "repository": "https://github.com/NotWoods/nwhacks-2017",
   "scripts": {
     "prepare": "tsc || exit 0",
