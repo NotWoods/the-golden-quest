@@ -47,8 +47,12 @@ export function readStory(handler: Alexa.Handler) {
 		throw new Error('Invalid currentState!');
 	}
 
-	const { message } = story;
-	handler.emit(':tell', message);
+	handler.emit(':tell', story.message);
+
+	if (story.end_state) {
+		handler.emit(':tell', 'The game has ended');
+		return;
+	}
 
 	if (shouldPassThrough(story)) {
 		readStory(handler);
