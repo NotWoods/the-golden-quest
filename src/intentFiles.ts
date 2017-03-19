@@ -1,16 +1,17 @@
 import { getAllActions } from './game';
 
-const actions = getAllActions();
+const actions = Array.from(getAllActions())
+	.filter(([id]) => parseInt(id, 10) < 1000);
 const prefix = process.argv[3] || '';
 
 if (process.argv[2] === 'utter') {
-	actions.forEach(action => {
+	actions.forEach(([,action]) => {
 		console.log(`${prefix}${action.node} ${action.message}`);
 		console.log('');
 	})
 } else if (process.argv[2] === 'json') {
 	const json = {
-		intents: Array.from(actions.keys(), key => ({ intent: `${prefix}${key}` }))
+		intents: actions.map(([key]) => ({ intent: `${prefix}${key}` })),
 	};
 	console.log(JSON.stringify(json));
 } else {
