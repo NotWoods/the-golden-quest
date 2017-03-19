@@ -5,40 +5,34 @@ start: You are at a hackathon and have been coding for 7 hours straight. Taking 
 lost_in_school : However, you realize you don’t know where the bathroom is in this building
 <<<<<<< Updated upstream
 > 20: run home | friend
-> 21: go outside to pee in a bush | people_walking_by
-> 22: take a look at the building directory | janitor_closet
-=======
-> run home | friend
-> go outside to pee in a bush | people_walking_by
-> take a look at the building directory | janitor_closet
->>>>>>> Stashed changes
+> 21: go out to pee in a bush | people_walking_by
+> 22: look at the building directory | janitor_closet
 
-friend: You meet your friend from your comp sci class. She tries to get a conversation going.
+friend: You bump into your friend from your computer science class. She tries to get a conversation going. You try to be polite.
 > 30: Agree to chat | drones_on
-> 31: Cut off | need_to_go
+> 31: Avoid conversation | need_to_go
 
-drones_on: You friend begins babbling on about world politics and her comp sci homework..
-You are unable to be polite any longer.
+drones_on: You friend begins to ramble on about algorithms and quantum mechanics. You can't hold on for much longer.
 > 40: run away | need_to_go
 > 41: cut her off | kicks_bladder
 
 kicks_bladder: Your friend throws a fit and kicks you in the bladder.
 >> 50: peed_pants
 
-need_to_go: YOU REALLY NEED TO GO
+need_to_go: You really need to go.
 > 60: run home | forgot_key
 
-forgot_key: You forgot your keys
+forgot_key: You reach in your back pocket and realize that you forgot your keys. No one is home. 
 > 70: Go to front desk | front_desk
-> 71: Call roommate and wait in a panic | peed_pants
+> 71: Call roommate and wait in panic | peed_pants
 
-front_desk: You head to the front desk to request a new set of keys. The desk is busy.
-> 150: go outside to pee in a bush | people_walking_by
+front_desk: You head to the front desk to request a new set of keys. Today was busy and there is a huge lineup.
+> 150: go out to pee in a bush | people_walking_by
 > 151: wait in line | wait_in_line
 
-wait_in_line: You decide to wait in line for your keys. The line is really long.
+wait_in_line: You decide to wait in line for your keys. You are growing impatient.
 > 160: demand to go first | demand_keys
-> 161: go outside to pee in a bush | people_walking_by
+> 161: go out to pee in a bush | people_walking_by
 
 demand_keys: You demand your keys but the receptionist glares at you. 
 > 170: pee your pants in defiance | peed_pants 
@@ -49,12 +43,11 @@ People_walking_by: You see people walking by you.
 > 80: pee anyway | campus_security
 > 81: wait for them to leave | need_to_go
 
-campus_security: Before you get started, campus security sees you and begins to chase after you
+campus_security: Before you can start, campus security spots you and begins to chase after you
 > 90: run home | forgot_key
 > 91: run back to school | lost_in_school
 
-janitor_closet: You were misled and you end up in a janitor’s closet.
-You look in the back and notice what appears to be a wormhole
+janitor_closet: You were misled and you end up in a janitor’s closet. You look in the back and notice what appears to be a wormhole
 > 100: approach the wormhole | flying_toilets
 > 101: leave the closet | locked
 
@@ -67,12 +60,12 @@ flying_toilets: In the wormhole, you look around and see toilets flying past you
 > 121: watch them fly by | exit_hole
 
 toilet_ride: You manage to grab onto one but notice the toilets are glued shut. Weird stuff.
-> 130: try to pry it open | exit_hole
+> 130: try prying it open | exit_hole
 > 131: let go | exit_hole
 
-exit_hole: That was a strange experience. You fall out of the hole and end up back in the building where you first started. It’s a wonder how your bladder still hasn’t exploded already.
+exit_hole: You fall out of the hole and end up back in the building where you first started. That was a strange experience. It’s a wonder how your bladder still hasn’t exploded yet.
 > 140: ask a passerby for directions | find_bathroom
 > 141: go home | friend
 > 142: pee in a bush | people_walking_by
 
-END STATE #1: find_bathroom:You can’t believe why you didn’t think of asking someone earlier. You make it to the bathroom and carry on with your hackathon.
+END STATE #1: find_bathroom:You can’t believe why you didn’t think of asking anyone earlier. You make it to the bathroom and carry on with your hackathon.
