@@ -102,6 +102,9 @@ ASK_A_PASSERBY_FOR_DIRECTIONS directions
 GO_HOME go home
 GO_HOME home
 
+RUN_HOME go home
+RUN_HOME home
+
 GO_PEE_IN_A_BUSH pee in a bush
 GO_PEE_IN_A_BUSH pee in bush
 GO_PEE_IN_A_BUSH pee
