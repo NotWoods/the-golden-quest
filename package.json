@@ -3,9 +3,10 @@
   "version": "1.1.1",
   "main": "out/index.js",
   "description": "Navigate through this interactive audio quest on Amazon Echo with only your voice and wits.",
-  "repository": "https://github.com/NotWoods/nwhacks-2017",
+  "repository": "https://github.com/NotWoods/the-golden-quest",
   "scripts": {
     "prepare": "tsc || exit 0",
+    "prepublish": "npm run prepare",
     "prestart": "npm run prepare --silent",
     "start": "node out/cmd",
     "pretest": "npm run prepare --silent",
