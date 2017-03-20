@@ -1,9 +1,10 @@
 {
   "name": "the-golden-quest",
-  "version": "1.1.1",
+  "version": "1.2.3",
   "main": "out/index.js",
   "description": "Navigate through this interactive audio quest on Amazon Echo with only your voice and wits.",
   "repository": "https://github.com/NotWoods/the-golden-quest",
+  "bin": "./out/cmd.js",
   "scripts": {
     "prepare": "tsc || exit 0",
     "prepublish": "npm run prepare",
@@ -30,9 +31,24 @@
     "@types/alexa-sdk": "^1.0.4",
     "@types/blue-tape": "^0.1.30",
     "@types/denodeify": "^1.2.30",
+    "@types/lodash.snakecase": "^4.1.1",
     "@types/node": "^7.0.8",
     "@types/shortid": "0.0.28",
     "blue-tape": "^1.0.0",
     "typescript": "^2.2.1"
-  }
+  },
+  "files": [
+    "out/cmd.js",
+    "out/cmd.js.map",
+    "out/game.js",
+    "out/game.js.map",
+    "out/index.js",
+    "out/index.js.map",
+    "out/parseStory.js",
+    "out/parseStory.js.map",
+    "speechAssets/IntentSchema.json",
+    "speechAssets/SampleUtterances.txt",
+    "story.txt",
+    "index.js"
+  ]
 }
