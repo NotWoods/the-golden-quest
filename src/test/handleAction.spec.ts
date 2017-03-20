@@ -9,13 +9,20 @@ test('handleAction', t => {
 	if (!lost) throw new Error();
 	const handlerTester = makeHandler(lost);
 
+	const friend = nodes.get('friend');
+	const runHome = actionList.get('run home');
+	if (!friend || !runHome) {
+		t.fail('Missing friend node or run home action');
+		return;
+	}
+
 	handlerTester.on(':ask', (message: string) => {
-		const friendMsg = nodes.get('friend').message;
+		const friendMsg = friend.message;
 		t.assert(message.includes(friendMsg), `asked message includes ${friendMsg}`);
 		t.end();
 	});
 
-	handleAction(handlerTester, actionList.get('run home'));
+	handleAction(handlerTester, runHome);
 })
 
 

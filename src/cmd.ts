@@ -1,3 +1,8 @@
+declare function askOne(
+	data: { info: string },
+	callback: (response: string) => void,
+): void
+
 import { askOne } from 'questions';
 import { nodes, handleAction, readStory, getAllActions } from './game';
 import { StoryNode } from './parseStory';

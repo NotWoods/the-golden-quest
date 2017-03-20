@@ -8,7 +8,7 @@ interface SpecialHandler extends Handler {
 }
 
 export default function makeHandler(state: StoryNode) {
-	const handler: SpecialHandler = new EventEmitter();
+	const handler: SpecialHandler & EventEmitter = new EventEmitter();
 	handler.attributes = { currentState: state };
 	return handler;
 }

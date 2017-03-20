@@ -29,7 +29,7 @@ const json = JSON.parse(`{
 
 test('handler', t => {
 	t.plan(1);
-	handler(json, {
+	handler(json, <Alexa.Context & { succeed: Function }> {
     callbackWaitsForEmptyEventLoop: true,
     logGroupName: '',
     logStreamName: '',

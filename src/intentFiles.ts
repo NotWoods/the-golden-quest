@@ -3,16 +3,17 @@ import { PASS_THROUGH } from './parseStory';
 
 const actions = getAllActions();
 const prefix = process.argv[3] || '';
+const output = process.stdout;
 
 if (process.argv[2] === 'utter') {
-	actions.forEach((actions, message) => {
+	Array.from(actions.keys()).forEach(message => {
 		if (message === PASS_THROUGH) return;
-		console.log(`${prefix}${actionID(message)} ${message}`);
-		console.log('');
-	})
+		output.write(`${prefix}${actionID(message)} ${message}\n\n`, 'utf8');
+	});
+	process.exit(0);
 } else if (process.argv[2] === 'json') {
 	const json: any = { intents: [] };
-	actions.forEach((actions, message) => {
+	Array.from(actions.keys()).forEach(message => {
 		if (message === PASS_THROUGH) return;
 		json.intents.push({ intent: `${prefix}${actionID(message)}` });
 	});
@@ -24,8 +25,10 @@ if (process.argv[2] === 'utter') {
 		{ intent: 'AMAZON.StopIntent' },
 		{ intent: 'AMAZON.PreviousIntent' },
 	)
-	console.log(JSON.stringify(json));
+	output.write(JSON.stringify(json), 'utf8');
+	process.exit(0);
 } else {
 	console.error('Please use either "utter" or "json"');
 	console.error(`node ./out/intentFiles {utter|json} {prefix?}`);
+	process.exit(1);
 }
