@@ -65,7 +65,7 @@ toilet_ride: You manage to grab onto one but notice the toilets are glued shut. 
 
 exit_hole: You fall out of the hole and end up back in the building where you first started. That was a strange experience. It’s a wonder how your bladder still hasn’t exploded yet.
 > ra: ask a passerby for directions | find_bathroom
-> rb: go home | friend
+> rb: run home | friend
 > rc: go pee in a bush | people_walking_by
 
 END STATE #1: find_bathroom: You can’t believe why you didn’t think of asking anyone earlier. You make it to the bathroom and carry on with your hackathon. Quest: completed. 
